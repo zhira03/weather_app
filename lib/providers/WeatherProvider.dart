@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/services/weather_service.dart';
 
 class WeatherProvider extends ChangeNotifier{
   final WeatherService _weatherService =
-      WeatherService(apiKey: '1a23e1dccdbcac69325e16b819b44ed4');
+      WeatherService(apiKey : dotenv.env['WEATHER_API_KEY'] ?? '');
   WeatherModel ? _weatherModel;
   bool _isLoading = true;
 

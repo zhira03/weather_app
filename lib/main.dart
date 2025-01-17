@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/WeatherProvider.dart';
 import 'package:weather_app/screens/weatherHome.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: "assets/config/.env");
   runApp(
     MultiProvider(
       providers:[
