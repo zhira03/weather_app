@@ -28,6 +28,27 @@ class _WeatherhomeState extends State<Weatherhome> {
     }
   }
 
+  String getWeatherAnimation(String? mainCondition){
+    if(mainCondition == null) return "assets/sunny.json";
+
+    switch (mainCondition.toLowerCase()){
+      case 'clouds':
+      case 'mist':
+      case 'smoke':
+      case 'haze':
+      case 'dust':
+        return 'assets/cloudy.json';
+      case 'rain':
+      case 'drizzle':
+      case 'shower rain':
+        return 'assets/thunderclouds.json';
+      case 'clear':
+        return 'assets/sunny.json';
+      default:
+        return 'assets/sunny.json';
+    }
+  }
+
   @override
   void initState(){
     super.initState();
@@ -42,9 +63,11 @@ class _WeatherhomeState extends State<Weatherhome> {
           children: [
             Text(_weatherModel?.cityName ?? "Loading City....."),
 
-            Lottie.asset('assets/cloudy.json'),
+            Lottie.asset(getWeatherAnimation(_weatherModel?.mainCondition)),
         
-            Text("${_weatherModel?.temperature.round()?? "0"} *C")
+            Text("${_weatherModel?.temperature.round()?? "0"} °C"),
+
+            Text(_weatherModel?.mainCondition ?? "")
           ],
         ),
       ),
