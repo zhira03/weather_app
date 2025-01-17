@@ -48,16 +48,21 @@ class WeatherService {
   }
 
   Future<String> getCurrentLocation() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if(permission == LocationPermission.denied){
+        permission = await Geolocator.requestPermission();
+    }
+
     try {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       List<Placemark> placemarks =
           await placemarkFromCoordinates(position.latitude, position.longitude);
       String? city = placemarks[0].locality;
-      return city ?? "London"; // Default to London if city is null
+      return city ?? "Harare"; // Default to London if city is null
     } catch (e) {
       print("Error fetching location: $e");
-      return "London"; // Default city
+      return "Harare"; // Default city
     }
   }
 }
